@@ -1,0 +1,66 @@
+Day13_DeleteKthNodeFromEnd_CodeStudio
+
+
+
+/****************************************************************
+
+ Following is the class structure of the Node class:
+
+ class Node {
+     public int data;
+     public Node next;
+     public Node prev;
+
+     Node()
+     {
+         this.data = 0;
+         this.next = null;
+         this.prev = null;
+     }
+
+     Node(int data)
+     {
+         this.data = data;
+         this.next = null;
+         this.prev = null;
+     }
+
+     Node(int data, Node next)
+     {
+         this.data = data;
+         this.next = next;
+         this.prev = next;
+     }
+ };
+
+ *****************************************************************/
+
+public class Solution
+{
+    public static Node removeKthNode(Node head, int K)
+    {
+        // Write your code here.
+        if(head.next==null){
+            return null;
+        }
+        int size =0;
+         Node currNode=head;
+        while(currNode !=null){
+            size++;
+            currNode=currNode.next;
+        }
+   if(size==K){
+       return head.next;
+   }
+
+        int indexToSearch=size-K;
+         int i=1;
+         Node prevNode=head;
+        while(i<indexToSearch){
+             prevNode=prevNode.next;
+             i++;
+        }
+        prevNode.next=prevNode.next.next;
+        return head;
+    }
+}
