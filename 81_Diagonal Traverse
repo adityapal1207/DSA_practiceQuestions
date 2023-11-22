@@ -1,0 +1,73 @@
+Leetcode  498  Diagonal Traverse
+Given an m x n matrix mat, return an array of all the elements of the array in a diagonal order.
+
+ 
+
+Example 1:
+
+
+Input: mat = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,4,7,5,3,6,8,9]
+Example 2:
+
+Input: mat = [[1,2],[3,4]]
+Output: [1,2,3,4]
+ 
+
+Constraints:
+
+m == mat.length
+n == mat[i].length
+1 <= m, n <= 104
+1 <= m * n <= 104
+-105 <= mat[i][j] <= 105
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int[] findDiagonalOrder(int[][] mat) {
+        HashMap<Integer ,ArrayList<Integer>> map = new HashMap<>();
+        int rows= mat.length;
+        int cols=mat[0].length;
+        int res[]=new int[rows*cols];
+        int k =0;
+        for(int i=0;i<rows;i++){
+            for(int  j=0;j<cols;j++){
+                if(map.containsKey(i+j)){
+                    ArrayList<Integer> present = map.get(i+j);
+                    present.add(mat[i][j]);
+                }
+                else{
+                    ArrayList<Integer>  notPresent = new ArrayList<>();
+                    notPresent.add(mat[i][j]);
+                    map.put(i+j , notPresent);
+                } 
+              
+            }
+        }
+        
+        
+        for (Map.Entry<Integer, ArrayList<Integer>> entry : map.entrySet()) {
+            int key = entry.getKey();
+            ArrayList<Integer> value = entry.getValue();
+
+             System.out.println("Key: " + key + ", Value: " + value);
+             if( key %2 == 0){
+                Collections.reverse(value);
+             }
+             
+                 for(int i=0;i<value.size();i++){
+                     res[k++]=value.get(i);
+                 }
+             
+             
+        }
+       return res;
+    }
+}
